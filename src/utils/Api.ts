@@ -3,12 +3,13 @@
 class Api {
   url: string;
   key: string;
+
   constructor({ url, key }: { url: string; key: string }) {
     this.url = url;
     this.key = key;
   }
 
-  _checkResponse(res: any) {
+  _checkResponse(res: Response) {
     if (res.ok) {
       return res.json();
     }
