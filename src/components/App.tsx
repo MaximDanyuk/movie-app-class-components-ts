@@ -1,11 +1,12 @@
 /* eslint-disable */
 
-import Main from "./Main";
-import CheckConnection from "./CheckConnection";
-import api from "../utils/Api";
-import GenreMovieContext from "../contexts/GenreMovieContext";
-import React from "react";
-import { ImovieGrade } from "../types/types";
+import Main from './Main';
+import CheckConnection from './CheckConnection';
+import api from '../utils/Api';
+import GenreMovieContext from '../contexts/GenreMovieContext';
+import React from 'react';
+import { ImovieGrade } from '../types/types';
+import { debounce } from 'ts-debounce';
 
 class App extends React.PureComponent {
   state = {
@@ -14,7 +15,7 @@ class App extends React.PureComponent {
     isEmpty: false,
     number: 1,
     rated: [],
-    section: "search",
+    section: 'search',
     genresNames: [],
     autorKey: 0,
     movieGrade: [],
@@ -31,20 +32,20 @@ class App extends React.PureComponent {
         this.setState({
           movieData: findMovies.results,
           moviesTotalLength: findMovies.total_results,
-        })
+        }),
       )
-      .catch(() => "Ошибка на стороне сервера, уже решаем")
+      .catch(() => 'Ошибка на стороне сервера, уже решаем')
       .finally(() => {
         this.setState({
           isLoad: false,
         });
       });
   };
-  /*  */
 
   componentDidMount() {
     this.setState({
-      movieGrade: JSON.parse(localStorage.getItem("movieGrade") || "{}") || [],
+      movieGrade:
+        JSON.parse(localStorage.getItem('movieGrade') || '{}') || [],
     });
 
     this.getPopularMoviesFunction();
@@ -54,10 +55,8 @@ class App extends React.PureComponent {
         this.setState({ genresNames: data.genres });
         /*     console.log(data.genres); */
       })
-      .catch(() => "Ошибка на стороне сервера, уже решаем");
+      .catch(() => 'Ошибка на стороне сервера, уже решаем');
   }
-
-  /*  */
 
   handleCardRate = (id: number | string, value: number) => {
     const { autorKey, movieGrade } = this.state;
@@ -77,12 +76,14 @@ class App extends React.PureComponent {
             id: id,
             value: value,
           };
-          this.setState(({ movieGrade }: { movieGrade: ImovieGrade[] }) => {
-            return { movieGrade: [movieGradeItem, ...movieGrade] };
-          });
+          this.setState(
+            ({ movieGrade }: { movieGrade: ImovieGrade[] }) => {
+              return { movieGrade: [movieGradeItem, ...movieGrade] };
+            },
+          );
         }
       })
-      .catch(() => "Ошибка на стороне сервера, уже решаем");
+      .catch(() => 'Ошибка на стороне сервера, уже решаем');
   };
 
   componentDidUpdate(prevProps: unknown, prevstate: unknown) {
@@ -92,13 +93,13 @@ class App extends React.PureComponent {
 
     if (
       JSON.stringify(movieGrade) !=
-      JSON.stringify(localStorage.getItem("movieGrade"))
+      JSON.stringify(localStorage.getItem('movieGrade'))
     ) {
-      localStorage.setItem("movieGrade", JSON.stringify(movieGrade));
+      localStorage.setItem('movieGrade', JSON.stringify(movieGrade));
     }
 
     this.setState({
-      autorKey: JSON.parse(localStorage.getItem("autorKey") || "{}"),
+      autorKey: JSON.parse(localStorage.getItem('autorKey') || '{}'),
     });
     if (!autorKey && autorKey !== 0) {
       api
@@ -106,11 +107,11 @@ class App extends React.PureComponent {
         .then((data) => {
           this.setState({ autorKey: data.guest_session_id });
           localStorage.setItem(
-            "autorKey",
-            JSON.stringify(data.guest_session_id)
+            'autorKey',
+            JSON.stringify(data.guest_session_id),
           );
         })
-        .catch(() => "Ошибка на стороне сервера, уже решаем");
+        .catch(() => 'Ошибка на стороне сервера, уже решаем');
     }
   }
 
@@ -122,13 +123,13 @@ class App extends React.PureComponent {
     this.setState({
       section: key,
     });
-    if (key === "rated") {
+    if (key === 'rated') {
       api
         .getRated(autorKey)
         .then((data) => {
           this.setState({ rated: data.results });
         })
-        .catch(() => "Ошибка на стороне сервера, уже решаем")
+        .catch(() => 'Ошибка на стороне сервера, уже решаем')
         .finally(() => {
           this.setState({
             isLoad: false,
@@ -158,7 +159,7 @@ class App extends React.PureComponent {
           });
         }
       })
-      .catch(() => "Ошибка на стороне сервера, уже решаем")
+      .catch(() => 'Ошибка на стороне сервера, уже решаем')
       .finally(() => {
         this.setState({
           isLoad: false,
@@ -183,7 +184,7 @@ class App extends React.PureComponent {
           number: page,
         });
       })
-      .catch(() => "Ошибка на стороне сервера, уже решаем")
+      .catch(() => 'Ошибка на стороне сервера, уже решаем')
       .finally(() => {
         this.setState({
           isLoad: false,
@@ -191,19 +192,8 @@ class App extends React.PureComponent {
       });
   };
 
-  debounce = (fn: (text: string) => void, ms: number) => {
-    let timeout: any;
-    return function () {
-      const fnCall = () =>
-        ///fn.apply(this, arguments);
-
-        clearTimeout(timeout);
-      timeout = setTimeout(fnCall, ms);
-    };
-  };
-
   render() {
-    const debouncedShowSearchData = this.debounce((text) => {
+    const debouncedShowSearchData = debounce((text) => {
       text = text.trim();
       if (text.length) {
         this.handleSearchMovie(text, 1);
