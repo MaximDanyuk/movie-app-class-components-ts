@@ -63,12 +63,6 @@
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.3"
   },
-  "lint-staged": {
-    "**/*.{js,jsx}": [
-      "npm run lint",
-      "prettier --write"
-    ]
-  },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "prettier.config.js",
   "author": "",
