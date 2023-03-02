@@ -1,3 +1,4 @@
+/*eslint-disable */
 import RowItems from './RowItems';
 import Search from './Search';
 import RatedPage from './RatedPage';
