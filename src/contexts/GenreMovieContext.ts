@@ -1,4 +1,6 @@
-import React from "react";
+/*eslint-disable */
+
+import React from 'react';
 interface context {
   id: number | string;
   name: string;

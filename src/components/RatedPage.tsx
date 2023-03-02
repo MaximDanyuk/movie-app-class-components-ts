@@ -1,7 +1,7 @@
 /* eslint-disable */
-import MovieItem from "./MovieItem";
-import React from "react";
-import { ImovieGrade, movie } from "../types/types";
+import MovieItem from './MovieItem';
+import React from 'react';
+import { ImovieGrade, movie } from '../interfaces/interfaces';
 
 interface ratedPageProps {
   rated: movie[];

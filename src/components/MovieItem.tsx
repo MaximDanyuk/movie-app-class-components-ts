@@ -1,13 +1,13 @@
 /* eslint-disable */
 
-import GenreMovieContext from "../contexts/GenreMovieContext";
-import noImage from "../images/noimage.png";
-import React from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import "react-lazy-load-image-component/src/effects/opacity.css";
-import { Rate, Descriptions, Card, Tag } from "antd";
-import { ImovieGrade, movie } from "../types/types";
+import GenreMovieContext from '../contexts/GenreMovieContext';
+import noImage from '../images/noimage.png';
+import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
+import { Rate, Descriptions, Card, Tag } from 'antd';
+import { ImovieGrade, movie } from '../interfaces/interfaces';
 
 const { Meta } = Card;
 
@@ -50,12 +50,12 @@ class MovieItem extends React.PureComponent<movieItemProps> {
 
     const color = `circle-rate ${
       voteAverage > 0 && voteAverage <= 3
-        ? "circle-rate_red"
+        ? 'circle-rate_red'
         : voteAverage > 3 && voteAverage <= 5
-        ? "circle-rate_yellow"
+        ? 'circle-rate_yellow'
         : voteAverage > 5 && voteAverage <= 7
-        ? "circle-rate_yellow-lite"
-        : "circle-rate_green"
+        ? 'circle-rate_yellow-lite'
+        : 'circle-rate_green'
     }`;
     const totalRate = voteAverage.toString().slice(0, 3);
     const imageSrc = backdropPath
@@ -93,7 +93,9 @@ class MovieItem extends React.PureComponent<movieItemProps> {
         </div>
 
         <div className="card__description">
-          <Descriptions.Item label="description">{overview}</Descriptions.Item>
+          <Descriptions.Item label="description">
+            {overview}
+          </Descriptions.Item>
         </div>
 
         <Rate

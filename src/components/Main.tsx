@@ -1,9 +1,9 @@
-import RowItems from "./RowItems";
-import Search from "./Search";
-import RatedPage from "./RatedPage";
-import SectionButtons from "./SectionButtons";
-import React from "react";
-import { ImovieGrade, movie } from "../types/types";
+import RowItems from './RowItems';
+import Search from './Search';
+import RatedPage from './RatedPage';
+import SectionButtons from './SectionButtons';
+import React from 'react';
+import { ImovieGrade, movie } from '../interfaces/interfaces';
 
 interface mainProps {
   movieData: movie[];
@@ -40,9 +40,11 @@ class Main extends React.PureComponent<mainProps> {
     return (
       <main className="main page__main">
         <SectionButtons handleChangeSection={handleChangeSection} />
-        {section === "search" ? (
+        {section === 'search' ? (
           <>
-            <Search debouncedShowSearchData={debouncedShowSearchData} />
+            <Search
+              debouncedShowSearchData={debouncedShowSearchData}
+            />
             <RowItems
               movieGrade={movieGrade}
               movieData={movieData}

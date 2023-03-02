@@ -1,11 +1,11 @@
 /* eslint-disable */
 
-import MovieItem from "./MovieItem";
-import Spin from "./Spin";
-import React from "react";
-import "antd/dist/reset.css";
-import { Pagination } from "antd";
-import { ImovieGrade, movie } from "../types/types";
+import MovieItem from './MovieItem';
+import Spin from './Spin';
+import React from 'react';
+import 'antd/dist/reset.css';
+import { Pagination } from 'antd';
+import { ImovieGrade, movie } from '../interfaces/interfaces';
 
 interface rowItemsProps {
   movieData: movie[];
@@ -36,7 +36,8 @@ class RowItems extends React.PureComponent<rowItemsProps> {
       <>
         {isEmpty ? (
           <div className="search_mistaken">
-            Sorry :(, could you rephrase your request, we cant find smth
+            Sorry :(, could you rephrase your request, we cant find
+            smth
           </div>
         ) : (
           <>
@@ -52,7 +53,9 @@ class RowItems extends React.PureComponent<rowItemsProps> {
             </section>
             <Pagination
               defaultCurrent={number}
-              total={moviesTotalLength > 500 ? 500 : moviesTotalLength}
+              total={
+                moviesTotalLength > 500 ? 500 : moviesTotalLength
+              }
               className="pagination"
               onChange={(current) => paginationClick(current)}
             />

@@ -5,7 +5,7 @@ import CheckConnection from './CheckConnection';
 import api from '../utils/Api';
 import GenreMovieContext from '../contexts/GenreMovieContext';
 import React from 'react';
-import { ImovieGrade } from '../types/types';
+import { ImovieGrade } from '../interfaces/interfaces';
 import { debounce } from 'ts-debounce';
 
 class App extends React.PureComponent {
