@@ -84,7 +84,7 @@ class App extends React.PureComponent {
     const { autorKey } = this.state;
 
     this.setState(() => {
-      return { autorKey: JSON.parse(localStorage.autorKey) };
+      return { autorKey: JSON.parse(localStorage.autorKey || '{}') };
     });
 
     if (!autorKey || autorKey == 0) {
