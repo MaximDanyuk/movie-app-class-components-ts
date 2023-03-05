@@ -16,7 +16,7 @@ export default class RatedPage extends React.PureComponent<ratedPageProps> {
       <section className="card-items">
         {rated.map((el) => (
           <MovieItem
-            key={el.id}
+            key={`${el.id}${el.release_date}`}
             handleCardRate={handleCardRate}
             movieGrade={movieGrade}
             {...el}

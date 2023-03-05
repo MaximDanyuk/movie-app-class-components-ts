@@ -19,7 +19,6 @@ interface movieItemProps extends movie {
 class MovieItem extends React.PureComponent<movieItemProps> {
   static contextType = GenreMovieContext;
   context!: React.ContextType<typeof GenreMovieContext>;
-
   render() {
     const {
       original_title: originalTitle,

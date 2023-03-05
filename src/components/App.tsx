@@ -21,7 +21,6 @@ class App extends React.PureComponent {
     movieGrade: [],
     moviesTotalLength: 0,
   };
-
   getPopularMoviesFunction = () => {
     this.setState({
       isLoad: true,
@@ -43,17 +42,11 @@ class App extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.setState({
-      movieGrade:
-        JSON.parse(localStorage.getItem('movieGrade') || '{}') || [],
-    });
-
     this.getPopularMoviesFunction();
     api
       .getGenres()
       .then((data) => {
         this.setState({ genresNames: data.genres });
-        /*     console.log(data.genres); */
       })
       .catch(() => 'Ошибка на стороне сервера, уже решаем');
   }
@@ -88,24 +81,20 @@ class App extends React.PureComponent {
 
   componentDidUpdate(prevProps: unknown, prevstate: unknown) {
     /// не используем же все равно
-    const { movieGrade } = this.state;
     const { autorKey } = this.state;
 
-    if (
-      JSON.stringify(movieGrade) !=
-      JSON.stringify(localStorage.getItem('movieGrade'))
-    ) {
-      localStorage.setItem('movieGrade', JSON.stringify(movieGrade));
-    }
-
-    this.setState({
-      autorKey: JSON.parse(localStorage.getItem('autorKey') || '{}'),
+    this.setState(() => {
+      return { autorKey: JSON.parse(localStorage.autorKey) };
     });
-    if (!autorKey && autorKey !== 0) {
+
+    if (!autorKey || autorKey == 0) {
       api
         .getSession()
         .then((data) => {
-          this.setState({ autorKey: data.guest_session_id });
+          this.setState(() => {
+            return { autorKey: data.guest_session_id };
+          });
+
           localStorage.setItem(
             'autorKey',
             JSON.stringify(data.guest_session_id),
@@ -123,6 +112,7 @@ class App extends React.PureComponent {
     this.setState({
       section: key,
     });
+
     if (key === 'rated') {
       api
         .getRated(autorKey)
@@ -203,6 +193,7 @@ class App extends React.PureComponent {
         this.getPopularMoviesFunction();
       }
     }, 350);
+
     const {
       genresNames,
       movieData,

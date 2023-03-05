@@ -45,7 +45,7 @@ class RowItems extends React.PureComponent<rowItemsProps> {
               {movieData.map((el) => (
                 <MovieItem
                   movieGrade={movieGrade}
-                  key={el.id}
+                  key={`${el.id}${el.release_date}`}
                   handleCardRate={handleCardRate}
                   {...el}
                 />
